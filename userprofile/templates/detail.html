@@ -1,0 +1,26 @@
+
+<div>
+    {% if users.profile_img %}
+    <img src="{{users.profile_img.url}}" alt="" width="300" height="300">
+    {% endif %}
+</div>
+<div>
+    <h3>{{users.username}}</h3> 
+    {{users.age}}<br>
+    {% if users.gender == "W" %}
+                    여자<br>
+                {% else %}
+                    남자<br>
+                {% endif %}
+    {{users.hope_area}}<br>
+    {{users.school}}<br>
+    {{users.major}}<br>
+    {{users.sleep_habit}}<br>
+    {{users.sleep_time}}<br>
+    {{users.cleanliness}}<br>
+    {{users.cook}}<br>
+    {{users.smoke}}<br>
+    {{users.budget}}<br>
+    {{users.introduction}}
+</div>
+

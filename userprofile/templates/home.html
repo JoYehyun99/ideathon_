@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+    안녕하세요, {{user.username}} 님!
+    {%endif%}
+
+    {% if not user.is_authenticated %}
+    <a href="{%url 'login'%}">login</a>
+    <a href="{%url 'register'%}">sign up</a>
+    {%endif%}
+    {% if user.is_authenticated %}
+    <a href="{%url 'logout'%}">logout</a>
+    {%endif%}
+    
+<!-- 검색 기능-->
+    <form class="search_form" action="{% url 'search' %}" method="post">
+        {% csrf_token %}
+        <select name="fd_name" id="" class="form-control">
+            <option value="major">major</option>
+            <option value="hope_area">hope_area</option>
+        </select>
+        <input class="search_text" type="search" placeholder="Search" name="q" value="{{q}}">
+        <button class="search_btn" type="submit">Search</button>
+    </form>
+<br>
+<br>
+<br>
+<!-- 컨텐츠 보여주기-->
+ <div class = "container">
+    {% for user in users %}
+    {% if user.profile_active %}
+
+    <div class="user_wrap">
+        <div class="user_left"> <!-- 이용자 이미지 -->
+            {% if user.profile_img %}
+            <img src="{{user.profile_img.url}}" alt="" width="300" height="300">
+            {% endif %}
+        </div>
+
+        <div class="user_right"> <!-- 이용자 정보 및 상세보기 버튼 -->
+
+            <div class="user_info">
+                <h3>{{user.username}}</h3> 
+                {{user.age}}<br>
+                {% if user.gender == "W" %}
+                    여자<br>
+                {% else %}
+                    남자<br>
+                {% endif %}
+                {{user.hope_area}}<br>
+            </div>
+
+            <div class="user_detail">
+              <a href="{%url 'detail' user.id%}" class="detail_btn"> DETAIL </a>
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<hr>
+</body>
+</html>

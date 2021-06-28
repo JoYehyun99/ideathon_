@@ -1,0 +1,25 @@
+{% if not users %}
+
+        <h1>검색 결과가 없습니다</h1>
+
+    {% else %}
+
+        {% for user in users.all %}
+        <div>
+            {% if user.profile_img %}
+            <img src="{{user.profile_img.url}}" alt="" width="500" height="500">
+            {% endif %}
+            <h3>{{user.username}}</h3> 
+            
+            {{user.age}}<br>
+            {% if user.gender == "W" %}
+                    여자<br>
+                {% else %}
+                    남자<br>
+                {% endif %}
+            {{user.major}}<br>
+        </div>
+        <br>
+        {% endfor %}
+
+    {% endif %}
